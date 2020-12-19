@@ -70,34 +70,30 @@ print("Mame pro vas prichystanou analyzu 3 textu!")
 print(oddelovac)
 
 
-#Promenna pro vyber textu
-text_cislo = [1,2,3]
-
 # Vyber a kontrola cisla textu
 while True:
     vyber_textu = int(input("Zvolte cislici od 1 do 3: "))
 
-    if vyber_textu in text_cislo:
+    if vyber_textu in [1, 2, 3]:
         print(f"Vyborne, zvolil jste text cislo {vyber_textu}!")
         break
     else:
         print("Zkuste to prosim znovu")
 
-# Analyza textu 1.
-if vyber_textu == 1:
+# Analyza textu
 
-    for slovo in TEXTS[0].split():
+for slovo in TEXTS[vyber_textu - 1].split():
 
-        if slovo[0].islower():
+    if slovo[0].islower():
             pocet_mala_pismena = pocet_mala_pismena + 1
 
-        elif slovo[0].isupper():
+    elif slovo[0].isupper():
             pocet_velka_pismena = pocet_velka_pismena + 1
 
-        elif slovo.istitle():
+    elif slovo.istitle():
             pocet_velkych_slov = pocet_velkych_slov + 1
 
-        elif slovo.isnumeric():
+    elif slovo.isnumeric():
             pocet_cisel = pocet_cisel + 1
 
     # Vystup 1. analyzy textu
@@ -110,7 +106,7 @@ if vyber_textu == 1:
     print(oddelovac)
 
     # Zbaveni se ,,bordelu".
-    rozdelene = [slovo.strip(",.:") for slovo in TEXTS[0].split()]
+    rozdelene = [slovo.strip(",.:") for slovo in TEXTS[vyber_textu - 1].split()]
 
     # Cetnost delky slov v textu
     vyskyt = {}
@@ -127,106 +123,11 @@ if vyber_textu == 1:
         print(f"{slovicko}********{vyskyt[slovicko]}")
 
     #Soucet cisel v textu + konecny vystup
-    cislice = [int(cislo) for cislo in TEXTS[0].split() if cislo.isdigit()]
+    cislice = [int(cislo) for cislo in TEXTS[vyber_textu - 1].split() if cislo.isdigit()]
     print(oddelovac)
     print(f" Pokud spocitame vsechna cisla v tomto textu, dostaneme hodnotu {sum(cislice)}!")
     print(oddelovac)
-# Analyza textu 2.
-if vyber_textu == 2:
 
-    for slovo in TEXTS[1].split():
-
-        if slovo[0].islower():
-            pocet_mala_pismena = pocet_mala_pismena + 1
-
-        elif slovo[0].isupper():
-            pocet_velka_pismena = pocet_velka_pismena + 1
-
-        elif slovo.istitle():
-            pocet_velkych_slov = pocet_velkych_slov + 1
-
-        elif slovo.isnumeric():
-            pocet_cisel = pocet_cisel + 1
-
-    # Vystup 1. analyzy textu
-    print(oddelovac)
-    print(f"Zvoleny text obsahuje {len(TEXTS[1])} slov!")
-    print(f" Zvoleny text obsahuje {pocet_mala_pismena} slov, zacinajicich malym pismenem!")
-    print(f" Zvoleny text obsahuje {pocet_velka_pismena} slov, zacinajicich velkym pismen!")
-    print(f" Zvoleny text obsahuje {pocet_velkych_slov} slov, psanych velkym pismem!")
-    print(f" Zvoleny text obsahuje {pocet_cisel} pocet cisel!")
-    print(oddelovac)
-
-    # Zbaveni se ,,bordelu".
-    rozdelene = [slovo.strip(",.:") for slovo in TEXTS[1].split()]
-
-    # Cetnost delky slov v textu
-    vyskyt = {}
-
-    for slovicko in rozdelene:
-
-        if len(slovicko) not in vyskyt:
-            vyskyt[len(slovicko)] = 1
-        else:
-            vyskyt[len(slovicko)] += 1
-
-    # Vystup cetnosti slov
-    for (slovicko) in vyskyt:
-        print(f"{slovicko}********{vyskyt[slovicko]}")
-
-    # Soucet cisel v textu + konecny vystup
-    cislice = [int(cislo) for cislo in TEXTS[1].split() if cislo.isdigit()]
-    print(oddelovac)
-    print(f" Pokud spocitame vsechna cisla v tomto textu, dostaneme hodnotu {sum(cislice)}!")
-    print(oddelovac)
-# Analyza textu 3.
-if vyber_textu == 3:
-
-    for slovo in TEXTS[2].split():
-
-        if slovo[0].islower():
-            pocet_mala_pismena = pocet_mala_pismena + 1
-
-        elif slovo[0].isupper():
-            pocet_velka_pismena = pocet_velka_pismena + 1
-
-        elif slovo.istitle():
-            pocet_velkych_slov = pocet_velkych_slov + 1
-
-        elif slovo.isnumeric():
-            pocet_cisel = pocet_cisel + 1
-
-    # Vystup 1. analyzy textu
-    print(oddelovac)
-    print(f"Zvoleny text obsahuje {len(TEXTS[2])} slov!")
-    print(f" Zvoleny text obsahuje {pocet_mala_pismena} slov, zacinajicich malym pismenem!")
-    print(f" Zvoleny text obsahuje {pocet_velka_pismena} slov, zacinajicich velkym pismen!")
-    print(f" Zvoleny text obsahuje {pocet_velkych_slov} slov, psanych velkym pismem!")
-    print(f" Zvoleny text obsahuje {pocet_cisel} pocet cisel!")
-    print(oddelovac)
-
-    # Zbaveni se ,,bordelu".
-    rozdelene = [slovo.strip(",.:") for slovo in TEXTS[2].split()]
-
-    # Cetnost delky slov v textu
-    vyskyt = {}
-
-    for slovicko in rozdelene:
-
-        if len(slovicko) not in vyskyt:
-            vyskyt[len(slovicko)] = 1
-        else:
-            vyskyt[len(slovicko)] += 1
-
-    # Vystup cetnosti slov
-    for (slovicko) in vyskyt:
-        print(f"{slovicko}********{vyskyt[slovicko]}")
-
-    # Soucet cisel v textu + konecny vystup
-    cislice = [int(cislo) for cislo in TEXTS[2].split() if cislo.isdigit()]
-    print(oddelovac)
-    print(f" Pokud spocitame vsechna cisla v tomto textu, dostaneme hodnotu {sum(cislice)}!")
-    print(oddelovac)
 
 
 

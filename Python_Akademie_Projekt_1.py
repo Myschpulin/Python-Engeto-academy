@@ -71,18 +71,22 @@ print(oddelovac)
 
 
 # Vyber a kontrola cisla textu
-while True:
-    vyber_textu = int(input("Zvolte cislici od 1 do 3: "))
 
-    if vyber_textu in [1, 2, 3]:
+while True:
+
+    vyber_textu = input("Zvolte cislici od 1 do 3: ")
+
+    if vyber_textu.isnumeric() and int(vyber_textu) in [1, 2, 3]:
+
         print(f"Vyborne, zvolil jste text cislo {vyber_textu}!")
         break
+
     else:
-        print("Zkuste to prosim znovu")
+        print("Zkuste to prosim znovu, nezadal jste cislici")
 
 # Analyza textu
 
-for slovo in TEXTS[vyber_textu - 1].split():
+for slovo in TEXTS[int(vyber_textu) - 1].split():
 
     if slovo[0].islower():
             pocet_mala_pismena = pocet_mala_pismena + 1
@@ -98,7 +102,7 @@ for slovo in TEXTS[vyber_textu - 1].split():
 
     # Vystup 1. analyzy textu
     print(oddelovac)
-    print(f"Zvoleny text obsahuje {len(TEXTS[0])} slov!")
+    print(f"Zvoleny text obsahuje {len(TEXTS[int(vyber_textu) - 1].split())} slov")
     print(f" Zvoleny text obsahuje {pocet_mala_pismena} slov, zacinajicich malym pismenem!")
     print(f" Zvoleny text obsahuje {pocet_velka_pismena} slov, zacinajicich velkym pismen!")
     print(f" Zvoleny text obsahuje {pocet_velkych_slov} slov, psanych velkym pismem!")
@@ -106,7 +110,7 @@ for slovo in TEXTS[vyber_textu - 1].split():
     print(oddelovac)
 
     # Zbaveni se ,,bordelu".
-    rozdelene = [slovo.strip(",.:") for slovo in TEXTS[vyber_textu - 1].split()]
+    rozdelene = [slovo.strip(",.:") for slovo in TEXTS[int(vyber_textu) - 1].split()]
 
     # Cetnost delky slov v textu
     vyskyt = {}
@@ -123,68 +127,7 @@ for slovo in TEXTS[vyber_textu - 1].split():
         print(f"{slovicko}********{vyskyt[slovicko]}")
 
     #Soucet cisel v textu + konecny vystup
-    cislice = [int(cislo) for cislo in TEXTS[vyber_textu - 1].split() if cislo.isdigit()]
+    cislice = [int(cislo) for cislo in TEXTS[int(vyber_textu) - 1].split() if cislo.isdigit()]
     print(oddelovac)
     print(f" Pokud spocitame vsechna cisla v tomto textu, dostaneme hodnotu {sum(cislice)}!")
     print(oddelovac)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

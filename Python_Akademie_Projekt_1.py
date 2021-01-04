@@ -38,11 +38,11 @@ pocet_velka_pismena = 0
 pocet_velkych_slov = 0
 pocet_mala_pismena = 0
 pocet_cisel = 0
+soucet_cisel = 0
 
 #Uvod do analyzatoru
-print(oddelovac)
-print("Vitejte v textovem analyzatoru, prihlaste se prosim!")
-print(oddelovac)
+
+print(oddelovac, "Vitejte v textovem analyzatoru, prihlaste se prosim!", oddelovac, sep=("\n"))
 
 #Vyzadani a zadani uzivatelskeho jmena
 while True:
@@ -65,28 +65,33 @@ while True:
         print("Zadane heslo je spatne, zkuse to znovu!")
 
 # Hlaseni poctu textu
-print(oddelovac)
-print("Mame pro vas prichystanou analyzu 3 textu!")
-print(oddelovac)
+
+print(oddelovac,"Mame pro vas prichystanou analyzu 3 textu!", oddelovac, sep=("\n"))
+
 
 
 # Vyber a kontrola cisla textu
 
 while True:
 
-    vyber_textu = input("Zvolte cislici od 1 do 3: ")
+        vyber_textu = input("Zvolte cislici od 1 do 3: ")
 
-    if vyber_textu.isnumeric() and int(vyber_textu) in [1, 2, 3]:
+        if vyber_textu.isnumeric() and int(vyber_textu) in [1, 2, 3]:
 
-        print(f"Vyborne, zvolil jste text cislo {vyber_textu}!")
-        break
+            print(f"Vyborne, zvolil jste text cislo {vyber_textu}!")
+            break
 
-    else:
-        print("Zkuste to prosim znovu, nezadal jste cislici")
+        elif vyber_textu.isnumeric() and int(vyber_textu) not in [1, 2, 3]:
+             print("Zvolte prosim cislici 1 - 3 !")
+
+        else:
+            print("Zkuste to prosim znovu, nezadal jste cislici.")
 
 # Analyza textu
 
 for slovo in TEXTS[int(vyber_textu) - 1].split():
+
+    slovo = slovo.strip(".:,")
 
     if slovo[0].islower():
             pocet_mala_pismena = pocet_mala_pismena + 1
@@ -99,35 +104,35 @@ for slovo in TEXTS[int(vyber_textu) - 1].split():
 
     elif slovo.isnumeric():
             pocet_cisel = pocet_cisel + 1
+            soucet_cisel += int(slovo)
 
     # Vystup 1. analyzy textu
-    print(oddelovac)
-    print(f"Zvoleny text obsahuje {len(TEXTS[int(vyber_textu) - 1].split())} slov")
-    print(f" Zvoleny text obsahuje {pocet_mala_pismena} slov, zacinajicich malym pismenem!")
-    print(f" Zvoleny text obsahuje {pocet_velka_pismena} slov, zacinajicich velkym pismen!")
-    print(f" Zvoleny text obsahuje {pocet_velkych_slov} slov, psanych velkym pismem!")
-    print(f" Zvoleny text obsahuje {pocet_cisel} pocet cisel!")
-    print(oddelovac)
+print(oddelovac)
+print(f"Zvoleny text obsahuje {len(TEXTS[int(vyber_textu) - 1].split())} slov")
+print(f" Zvoleny text obsahuje {pocet_mala_pismena} slov, zacinajicich malym pismenem!")
+print(f" Zvoleny text obsahuje {pocet_velka_pismena} slov, zacinajicich velkym pismen!")
+print(f" Zvoleny text obsahuje {pocet_velkych_slov} slov, psanych velkym pismem!")
+print(f" Zvoleny text obsahuje {pocet_cisel} pocet cisel!")
+print(oddelovac)
 
-    # Zbaveni se ,,bordelu".
-    rozdelene = [slovo.strip(",.:") for slovo in TEXTS[int(vyber_textu) - 1].split()]
+# Zbaveni se ,,bordelu".
+rozdelene = [slovo.strip(",.:") for slovo in TEXTS[int(vyber_textu) - 1].split()]
 
-    # Cetnost delky slov v textu
-    vyskyt = {}
+# Cetnost delky slov v textu
+vyskyt = {}
 
-    for slovicko in rozdelene:
+for slovicko in rozdelene:
 
-        if len(slovicko) not in vyskyt:
-            vyskyt[len(slovicko)] = 1
-        else:
-            vyskyt[len(slovicko)] += 1
-    #Vystup cetnosti slov
+    if len(slovicko) not in vyskyt:
+        vyskyt[len(slovicko)] = 1
+    else:
+        vyskyt[len(slovicko)] += 1
+#Vystup cetnosti slov
 
-    for (slovicko) in vyskyt:
-        print(f"{slovicko}********{vyskyt[slovicko]}")
+for (slovicko) in sorted(vyskyt):
 
-    #Soucet cisel v textu + konecny vystup
-    cislice = [int(cislo) for cislo in TEXTS[int(vyber_textu) - 1].split() if cislo.isdigit()]
-    print(oddelovac)
-    print(f" Pokud spocitame vsechna cisla v tomto textu, dostaneme hodnotu {sum(cislice)}!")
-    print(oddelovac)
+    print(f"{slovicko} {vyskyt[slovicko] * '*'} {vyskyt[slovicko]}")
+
+#Soucet cisel v textu + konecny vystup
+
+print(oddelovac,f"Sectenim cisel v tomto textu, dostaneme hodnotu {soucet_cisel}!", oddelovac, sep=("\n"))

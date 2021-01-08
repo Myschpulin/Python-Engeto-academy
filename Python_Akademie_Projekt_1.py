@@ -27,112 +27,78 @@ other freshwater genera and herring similar to those
 in modern oceans. Other fish such as paddlefish,
 garpike and stingray are also present.'''
 ]
-
-oddelovac = ("=") * 52
-
-#Uzivatele + hesla
-uzivatele = { 'bob':'123', 'ann':'pass123', 'mike':'password123', 'liz':'pass123'}
-
-#promene pro analyzu textu
+ODDDELOVAC = ("=") * 52
+# UZIVATELE + hesla
+UZIVATELE = { 'bob': '123', 'ann': 'pass123', 'mike': 'password123', 'liz': 'pass123'}
+# promene pro analyzu textu
 pocet_velka_pismena = 0
 pocet_velkych_slov = 0
 pocet_mala_pismena = 0
 pocet_cisel = 0
 soucet_cisel = 0
+vyskyt = {}
 
-#Uvod do analyzatoru
-
-print(oddelovac, "Vitejte v textovem analyzatoru, prihlaste se prosim!", oddelovac, sep=("\n"))
-
-#Vyzadani a zadani uzivatelskeho jmena
+# Uvod do analyzatoru
+print(ODDDELOVAC, "Vitejte v textovem analyzatoru, prihlaste se prosim!", ODDDELOVAC, sep=("\n"))
+# Vyzadani a zadani uzivatelskeho jmena
 while True:
-    zadani_uzivatele = input("Zadejte uzivatelske jmeno: ")
-
-    if zadani_uzivatele in uzivatele.keys():
-        print(f"Vitejte {zadani_uzivatele}!")
-        break
-    else:
-        print(f"Uzivatel {zadani_uzivatele} neexistuje")
-
-#Vyzadani a zadani hesla
-while True:
+    zadani_UZIVATELE = input("Zadejte uzivatelske jmeno: ")
     zadani_hesla = input("Zadejte vase heslo: ")
 
-    if zadani_hesla == uzivatele[zadani_uzivatele]:
-        print("Heslo je spravne, dekuji!")
-        break
+    if UZIVATELE.get(zadani_UZIVATELE) != zadani_hesla:
+        print(f"Spatne prihlasovaci udaje".upper())
     else:
-        print("Zadane heslo je spatne, zkuse to znovu!")
+        print("Uspesne prihlaseni".upper())
+        break
 
 # Hlaseni poctu textu
-
-print(oddelovac,"Mame pro vas prichystanou analyzu 3 textu!", oddelovac, sep=("\n"))
-
-
+print(ODDDELOVAC,"Mame pro vas prichystanou analyzu 3 textu!", ODDDELOVAC, sep=("\n"))
 
 # Vyber a kontrola cisla textu
-
 while True:
-
         vyber_textu = input("Zvolte cislici od 1 do 3: ")
-
         if vyber_textu.isnumeric() and int(vyber_textu) in [1, 2, 3]:
-
             print(f"Vyborne, zvolil jste text cislo {vyber_textu}!")
             break
-
         elif vyber_textu.isnumeric() and int(vyber_textu) not in [1, 2, 3]:
              print("Zvolte prosim cislici 1 - 3 !")
-
         else:
             print("Zkuste to prosim znovu, nezadal jste cislici.")
 
 # Analyza textu
-
 for slovo in TEXTS[int(vyber_textu) - 1].split():
-
     slovo = slovo.strip(".:,")
+
+    if len(slovo) not in vyskyt:
+        vyskyt[len(slovo)] = 1
+    else:
+        vyskyt[len(slovo)] += 1
 
     if slovo[0].islower():
             pocet_mala_pismena = pocet_mala_pismena + 1
-
     elif slovo[0].isupper():
             pocet_velka_pismena = pocet_velka_pismena + 1
-
     elif slovo.istitle():
             pocet_velkych_slov = pocet_velkych_slov + 1
-
-    elif slovo.isnumeric():
+    elif slovo.isdigit():
             pocet_cisel = pocet_cisel + 1
             soucet_cisel += int(slovo)
 
-    # Vystup 1. analyzy textu
-print(oddelovac)
-print(f"Zvoleny text obsahuje {len(TEXTS[int(vyber_textu) - 1].split())} slov")
-print(f" Zvoleny text obsahuje {pocet_mala_pismena} slov, zacinajicich malym pismenem!")
-print(f" Zvoleny text obsahuje {pocet_velka_pismena} slov, zacinajicich velkym pismen!")
-print(f" Zvoleny text obsahuje {pocet_velkych_slov} slov, psanych velkym pismem!")
-print(f" Zvoleny text obsahuje {pocet_cisel} pocet cisel!")
-print(oddelovac)
+ # Vystup 1. analyzy textu
+print(
+        ODDDELOVAC,
+      f"Zvoleny text obsahuje {len(TEXTS[int(vyber_textu) - 1].split())} slov",
+      f" Zvoleny text obsahuje {pocet_mala_pismena} slov, zacinajicich malym pismenem!",
+      f" Zvoleny text obsahuje {pocet_velka_pismena} slov, zacinajicich velkym pismen!",
+      f" Zvoleny text obsahuje {pocet_velkych_slov} slov, psanych velkym pismem!",
+      f" Zvoleny text obsahuje {pocet_cisel} pocet cisel!",
+      ODDDELOVAC,
+      sep=("\n")
+      )
 
-# Zbaveni se ,,bordelu".
-rozdelene = [slovo.strip(",.:") for slovo in TEXTS[int(vyber_textu) - 1].split()]
-
-# Cetnost delky slov v textu
-vyskyt = {}
-
-for slovicko in rozdelene:
-
-    if len(slovicko) not in vyskyt:
-        vyskyt[len(slovicko)] = 1
-    else:
-        vyskyt[len(slovicko)] += 1
-#Vystup cetnosti slov
-
+# Vystup cetnosti slov
 for (slovicko) in sorted(vyskyt):
-
     print(f"{slovicko} {vyskyt[slovicko] * '*'} {vyskyt[slovicko]}")
 
-#Soucet cisel v textu + konecny vystup
-
-print(oddelovac,f"Sectenim cisel v tomto textu, dostaneme hodnotu {soucet_cisel}!", oddelovac, sep=("\n"))
+# Soucet cisel v textu + konecny vystup
+print(ODDDELOVAC,f"Sectenim cisel v tomto textu, dostaneme hodnotu {soucet_cisel}!", ODDDELOVAC, sep=("\n"))
